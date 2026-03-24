@@ -1,3 +1,7 @@
+# BASH PROMPT STYLE
+
+# Default colour codes
+
 USERHOST_COLOR='\[\033[1;96m\]'  # bright cyan
 PATH_COLOR='\[\033[1;92m\]'      # bright green
 SEP_COLOR='\[\033[1;97m\]'       # white
@@ -7,6 +11,8 @@ RESET='\[\033[0m\]'
 DISABLE_USER=1
 DISABLE_HOST=0
 
+# Build the components
+
 USER_HOST_PART=""
 [ "$DISABLE_USER" -eq 0 ] && USER_HOST_PART+="\u"
 [ "$DISABLE_USER" -eq 0 ] && [ "$DISABLE_HOST" -eq 0 ] && USER_HOST_PART+="@"
@@ -14,5 +20,30 @@ USER_HOST_PART=""
 LEFT_PART=""
 [ -n "$USER_HOST_PART" ] && LEFT_PART="${USERHOST_COLOR}${USER_HOST_PART}${RESET}${SEP_COLOR}: ${RESET}"
 
+# Final PS1 and PS0 definitions
+
 PS1="${LEFT_PART}${PATH_COLOR}\w${RESET}${SEP_COLOR} \$ ${RESET}${CMD_COLOR}"
 PS0="${RESET}"
+
+
+# BASH HISTORY
+
+# Unlimited in-memory history
+export HISTSIZE=-1
+
+# Do not truncate the history file
+export HISTFILESIZE=-1
+
+# Keep everything, including duplicates and commands starting with space
+export HISTCONTROL=
+export HISTIGNORE=
+
+# Append instead of overwrite
+shopt -s histappend
+
+# Preserve multi-line commands more cleanly
+shopt -s cmdhist
+shopt -s lithist
+
+# Optional timestamps
+export HISTTIMEFORMAT='%F %T '
