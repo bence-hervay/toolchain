@@ -18,8 +18,16 @@ sudo apt-get install -y -qq \
   nano \
   ncdu \
   htop \
+  btop \
+  jq \
+  ffmpeg \
   earlyoom \
   cargo \
+  build-essential \
+  cmake \
+  libopencv-dev \
+  libboost-all-dev \
+  libeigen3-dev \
   python3 \
   python-is-python3
 
