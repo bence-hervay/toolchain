@@ -10,7 +10,21 @@ sudo apt-get update -qq
 sudo apt-get install -y -qq \
   git \
   curl \
-  ca-certificates
+  ca-certificates \
+  gnupg \
+  openssh-client \
+  tmux \
+  tree \
+  nano \
+  ncdu \
+  htop \
+  earlyoom \
+  cargo \
+  python3 \
+  python-is-python3
+
+echo "[setup-host] Installing uv"
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
 echo "[setup-host] Installing docker"
 if ! command -v docker &> /dev/null; then
