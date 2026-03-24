@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=/dev/null
-source "$SCRIPT_DIR/config.sh"
+source "$(dirname -- "${BASH_SOURCE[0]}")/config.sh"
 
 echo "[setup-host] Installing base packages"
 sudo apt-get update -qq
