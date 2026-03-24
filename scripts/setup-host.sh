@@ -10,6 +10,7 @@ sudo apt-get update -qq
 sudo apt-get install -y -qq \
   git \
   curl \
+  wget \
   ca-certificates \
   gnupg \
   openssh-client \
@@ -39,5 +40,27 @@ git config --global user.name "$GIT_USER"
 git config --global user.email "$GIT_EMAIL"
 git config --global core.autocrlf input
 git config --global core.eol lf
+
+echo "[setup-host] Updating bashrc"
+BASHRC_PATH="$HOME/.bashrc"
+BASHRC_START="# TOOLCHAIN BLOCK START"
+BASHRC_END="# TOOLCHAIN BLOCK END"
+temp_file="$(mktemp)"
+touch "$BASHRC_PATH"
+
+awk -v start="$BASHRC_START" -v end="$BASHRC_END" '
+  $0 == start { skip = 1; next }
+  $0 == end { skip = 0; next }
+  !skip { print }
+' "$BASHRC_PATH" > "$temp_file"
+
+{
+  cat "$temp_file"
+  printf "\n%s\n" "$BASHRC_START"
+  cat "$BASHRC_BLOCK_PATH"
+  printf "%s\n" "$BASHRC_END"
+} > "$BASHRC_PATH"
+
+rm -f "$temp_file"
 
 echo "[setup-host] Done"

@@ -1,0 +1,18 @@
+USERHOST_COLOR='\[\033[1;96m\]'  # bright cyan
+PATH_COLOR='\[\033[1;92m\]'      # bright green
+SEP_COLOR='\[\033[1;97m\]'       # white
+CMD_COLOR='\[\033[1;94m\]'       # bright blue
+RESET='\[\033[0m\]'
+
+DISABLE_USER=1
+DISABLE_HOST=0
+
+USER_HOST_PART=""
+[ "$DISABLE_USER" -eq 0 ] && USER_HOST_PART+="\u"
+[ "$DISABLE_USER" -eq 0 ] && [ "$DISABLE_HOST" -eq 0 ] && USER_HOST_PART+="@"
+[ "$DISABLE_HOST" -eq 0 ] && USER_HOST_PART+="\h"
+LEFT_PART=""
+[ -n "$USER_HOST_PART" ] && LEFT_PART="${USERHOST_COLOR}${USER_HOST_PART}${RESET}${SEP_COLOR}: ${RESET}"
+
+PS1="${LEFT_PART}${PATH_COLOR}\w${RESET}${SEP_COLOR} \$ ${RESET}${CMD_COLOR}"
+PS0="${RESET}"
