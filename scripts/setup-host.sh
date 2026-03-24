@@ -57,7 +57,7 @@ awk -v start="$BASHRC_START" -v end="$BASHRC_END" '
   cat "$temp_file"
   printf "\n%s\n" "$BASHRC_START"
   cat "$BASHRC_BLOCK_PATH"
-  printf "%s\n" "$BASHRC_END"
+  printf "\n%s\n" "$BASHRC_END"
 } > "$BASHRC_PATH"
 
 rm -f "$temp_file"
