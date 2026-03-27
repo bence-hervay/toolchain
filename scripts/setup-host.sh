@@ -23,6 +23,7 @@ sudo apt-get install -y -qq \
   ffmpeg \
   earlyoom \
   cargo \
+  opam \
   build-essential \
   cmake \
   libopencv-dev \
