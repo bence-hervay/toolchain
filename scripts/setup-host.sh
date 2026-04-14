@@ -23,6 +23,7 @@ sudo apt-get install -y -qq \
   ffmpeg \
   earlyoom \
   cargo \
+  npm \
   opam \
   build-essential \
   cmake \
