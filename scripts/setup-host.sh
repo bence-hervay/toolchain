@@ -50,6 +50,49 @@ git config --global user.email "$GIT_EMAIL"
 git config --global core.autocrlf input
 git config --global core.eol lf
 
+git config --global push.default current
+git config --global push.autoSetupRemote true
+git config --global remote.pushDefault origin
+
+git config --global merge.conflictStyle diff3
+
+git config --global alias.fpush 'push --force-with-lease'
+
+git config --global alias.submit '!f() {
+  set -e
+
+  commit="$1"
+  if [ -z "$commit" ]; then
+    echo "usage: git submit <commit>"
+    exit 2
+  fi
+
+  if ! git diff --quiet || ! git diff --cached --quiet; then
+    echo "working tree is not clean"
+    exit 1
+  fi
+
+  git fetch -q origin main
+
+  subject=$(git log -1 --format=%s "$commit")
+  short=$(git rev-parse --short "$commit")
+
+  slug=$(printf "%s" "$subject" \
+    | tr "[:upper:]" "[:lower:]" \
+    | sed -E "s/[^[:alnum:]]+/-/g; s/^-+//; s/-+$//; s/-+/-/g")
+
+  branch="${slug:+$slug-}$short"
+
+  if ! git check-ref-format --branch "$branch" >/dev/null 2>&1; then
+    echo "could not generate a valid branch name from: $subject"
+    exit 1
+  fi
+
+  git switch -c "$branch" --no-track origin/main
+  git cherry-pick "$commit"
+  git push -u origin HEAD
+}; f'
+
 echo "[setup-host] Updating bashrc"
 BASHRC_PATH="$HOME/.bashrc"
 BASHRC_START="# TOOLCHAIN BLOCK START"
