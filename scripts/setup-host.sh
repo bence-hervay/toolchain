@@ -22,7 +22,9 @@ sudo apt-get install -y -qq \
   jq \
   ffmpeg \
   earlyoom \
+  graphviz \
   cargo \
+  rustc \
   npm \
   opam \
   build-essential \
